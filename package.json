@@ -1,0 +1,25 @@
+{
+  "name": "ts_sort",
+  "version": "1.0.0",
+  "description": "university project to study sorting algorithm and ts",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/main.js",
+    "dev": "nodemon ./dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ts_sort"
+  },
+  "keywords": [
+    "ts",
+    "sort"
+  ],
+  "author": "nikmak",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
