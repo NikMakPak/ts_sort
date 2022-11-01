@@ -1,94 +1,108 @@
 "use strict";
 class Q_node {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
+    constructor(value) { //=2
+        this.value = value; //1
+        this.next = null; //1
     }
 }
 class Queue {
-    constructor() {
-        this.head = null;
-        this.tail = null;
-        this.length = 0;
+    constructor() {//=3
+        this.head = null; //1
+        this.tail = null; //1
+        this.length = 0; //1
     }
-    enqueue(value) {
-        const node = new Q_node(value);
-        if (this.head) {
-            if (this.tail != null) {
-                this.tail.next = node;
-                this.tail = node;
+    enqueue(value) {//=11
+        const node = new Q_node(value); //1+1+1
+        if (this.head) { //1
+            if (this.tail != null) { //1+1
+                this.tail.next = node; //1
+                this.tail = node; //1
             }
             else
-                throw ("this.tail == null");
+                throw ("this.tail == null"); //1
         }
         else {
-            this.head = node;
-            this.tail = node;
+            this.head = node; //1
+            this.tail = node; //1
         }
-        this.length++;
+        this.length++; //1
     }
-    get() {
-        if (this.head != null && this.tail != null) {
-            const current = this.head;
-            this.head = this.head.next;
-            this.tail.next = current;
-            this.tail = current;
-            return current.value;
+    get() { //=10
+        if (this.head != null && this.tail != null) { //1+1+1+1
+            const current = this.head; //1
+            this.head = this.head.next; //1
+            this.tail.next = current; //1
+            this.tail = current; //1
+            return current.value; //1
         }
-        throw ("this.head and this.tail == null");
+        throw ("this.head and this.tail == null"); //1
     }
-    print() {
-        let current = this.head;
-        while (current) {
-            console.log(current.value);
-            current = current.next;
+    print() { //1+3*n
+        let current = this.head; //1
+        while (current) { //sum 0 to n (1+1+1)
+            console.log(current.value); //1+1
+            current = current.next; //1
         }
     }
-    generate() {
-        for (let i = 0; i < Math.floor(Math.random() * 100 || 2); i++) {
+    generate() {//5+4*n
+        for (let i = 0; i < Math.floor(Math.random() * 100 || 2); i++) { //1+1+1+1+1 + summ 0 to n (1+1+1+1)
             this.enqueue(Math.floor(Math.random() * 100));
         }
     }
 }
-const getMax = (q) => {
-    let maxNum = -1;
-    for (let i = 0; i < q.length; i++) {
-        let numbersItem = q.get();
-        if (numbersItem > maxNum) {
-            maxNum = numbersItem;
+const getMax = (q) => {//3+14*n
+    let maxNum = -1; //1
+    for (let i = 0; i < q.length; i++) { //1+1+sum 0 to n (1+10+1+1+1)
+        let numbersItem = q.get(); //1+get() = 1+10
+        if (numbersItem > maxNum) { //1+1
+            maxNum = numbersItem; //1
         }
     }
     return maxNum;
 };
-const getMin = (q) => {
-    let minNum = 100 ** 10;
-    for (let i = 0; i < q.length; i++) {
-        let numbersItem = q.get();
-        if (numbersItem < minNum) {
-            minNum = numbersItem;
+const getMin = (q) => {//4+4*n
+    let minNum = 100 ** 10;  //1+1
+    for (let i = 0; i < q.length; i++) { //1+1+sum 0 to n (1+1+1+1)
+        let numbersItem = q.get(); //1
+        if (numbersItem < minNum) { //1+1
+            minNum = numbersItem; //1
         }
     }
     return minNum;
 };
-const printArr = (arr, minQVal) => {
-    let ans = [];
-    arr.forEach((val, i) => {
-        if (val !== 0)
-            ans.push(...(new Array(val).fill(i + minQVal)));
+const printArr = (arr, minQVal) => {//4+8*k
+    let ans = []; //1
+    arr.forEach((val, i) => {//1+1+sum 0 to k (1+1+1+1+1+1+1+1)
+        if (val !== 0) //1+1
+            ans.push(...(new Array(val).fill(i + minQVal))); //1+1+1+1+1+1
     });
-    console.log(ans);
+    console.log(ans); //1
 };
-const countingSort = () => {
-    let q = new Queue();
-    q.generate();
-    q.print();
-    let minQVal = getMin(q);
-    let sortDict = new Array((getMax(q) - minQVal) + 1).fill(0);
-    for (let i = 0; i < q.length; i++) {
-        let numbersItem = q.get();
-        sortDict[numbersItem - minQVal] += 1;
+const countingSort = () => { //2+5+4*n+1+3*n+1+1+4+4*n+6+3+14*n+2+14*k+1+4+8*k
+    let q = new Queue(); //1+1
+    q.generate(); //5+4*n
+    q.print(); //1+3*n
+    let minQVal = getMin(q);//1+1+(4+4*n)
+    let sortDict = new Array((getMax(q) - minQVal) + 1).fill(0); //1+1+1+1+1+(3+14*k)+1
+    for (let i = 0; i < q.length; i++) { //1+1+sum 0 to n (14)
+        let numbersItem = q.get(); //11
+        sortDict[numbersItem - minQVal] += 1; // 1+1+1
     }
-    printArr(sortDict, minQVal);
+    printArr(sortDict, minQVal); //1+4+8*k
 };
-countingSort();
-// можно ли объект юзать?
+countingSort(); //1+2+5+4*n+1+3*n+1+1+4+4*n+6+3+14*k+2+14*n+1+4+8*k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
